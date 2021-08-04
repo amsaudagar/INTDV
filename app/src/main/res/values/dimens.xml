@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Different margins-->
+    <dimen name="dim_standard_x2">2dp</dimen>
+    <dimen name="dim_standard_x3">3dp</dimen>
+    <dimen name="dim_standard_x4">4dp</dimen>
+    <dimen name="dim_standard_x5">5dp</dimen>
+    <dimen name="dim_standard_x8">8dp</dimen>
+    <dimen name="dim_standard_x10">10dp</dimen>
+    <dimen name="dim_standard_x15">15dp</dimen>
+    <dimen name="dim_standard_x20">20dp</dimen>
+    <dimen name="dim_standard_x25">25dp</dimen>
+    <dimen name="dim_standard_x40">40dp</dimen>
+    <dimen name="dim_standard_x30">30dp</dimen>
+    <dimen name="dim_standard_x60">60dp</dimen>
+
+    <!-- Text Size-->
+    <dimen name="_10sp">10sp</dimen>
+    <dimen name="_12sp">12sp</dimen>
+    <dimen name="_14sp">14sp</dimen>
+    <dimen name="_16sp">16sp</dimen>
+    <dimen name="_18sp">18sp</dimen>
+    <dimen name="_20sp">20sp</dimen>
+    <dimen name="_24sp">24sp</dimen>
+    <dimen name="_30sp">30sp</dimen>
+    <dimen name="_40sp">40sp</dimen>
+
+    <dimen name="loader_dimens">50dp</dimen>
+</resources>
