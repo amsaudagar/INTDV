@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.android.intdv.R
+import com.android.intdv.core.exception.Failure
 
 /**
  * Represents the base fragment which will provide the common features to all child fragments
@@ -16,6 +18,11 @@ abstract class BaseFragment : Fragment() {
      * Returns the resource id for the layout to render in the fragment
      */
     abstract fun layoutId(): Int
+
+    /**
+     * Handles the specific feature failure
+     */
+    open fun handleFeatureFailure() { }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -53,6 +60,21 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**
+     * Handles the API failure
+     */
+    fun handleFailure(failure: Failure?) {
+        hideProgressDialog()
+
+        when (failure) {
+            is Failure.NetworkConnection -> renderFailure(getString(R.string.connection_failure))
+            is Failure.ServerError -> renderFailure(getString(R.string.server_failure))
+            else -> {
+                handleFeatureFailure()
+            }
+        }
+    }
+
+    /**
      * Displays the error message if API fails
      */
     open fun renderFailure(message: String) {
@@ -64,4 +86,5 @@ abstract class BaseFragment : Fragment() {
         hideProgressDialog()
         super.onDestroy()
     }
+
 }

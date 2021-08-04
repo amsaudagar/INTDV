@@ -27,4 +27,7 @@
     <dimen name="_40sp">40sp</dimen>
 
     <dimen name="loader_dimens">50dp</dimen>
+
+    <dimen name="poster_width">47dp</dimen>
+    <dimen name="poster_height">71dp</dimen>
 </resources>
