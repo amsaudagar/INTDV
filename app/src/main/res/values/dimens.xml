@@ -16,6 +16,7 @@
     <dimen name="dim_standard_x60">60dp</dimen>
 
     <!-- Text Size-->
+    <dimen name="_8sp">8sp</dimen>
     <dimen name="_10sp">10sp</dimen>
     <dimen name="_12sp">12sp</dimen>
     <dimen name="_14sp">14sp</dimen>
@@ -30,4 +31,6 @@
 
     <dimen name="poster_width">47dp</dimen>
     <dimen name="poster_height">71dp</dimen>
+
+    <dimen name="circular_widget_dimen">60dp</dimen>
 </resources>

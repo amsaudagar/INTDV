@@ -27,6 +27,15 @@ fun View.gone() {
 /**
  * Loads the image in ImageView
  */
+fun ImageView.loadFromUrl(url: String) =
+    GlideApp.with(this.context.applicationContext)
+        .load(url)
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
+        .into(this)
+
+/**
+ * Loads the image in ImageView
+ */
 fun ImageView.loadFromUrl(url: String, placeholder: Int, errorPlaceholder: Int) =
     GlideApp.with(this.context.applicationContext)
         .load(url)

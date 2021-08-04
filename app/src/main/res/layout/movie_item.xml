@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dim_standard_x15"
             android:layout_marginTop="@dimen/dim_standard_x10"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ratingView"
             app:layout_constraintStart_toEndOf="@+id/ivPoster"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Title" />
@@ -45,6 +45,16 @@
             app:layout_constraintStart_toStartOf="@+id/title"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:text="April 12, 2019" />
+
+        <com.android.intdv.customviews.CircularProgressBar
+            android:id="@+id/ratingView"
+            android:layout_width="@dimen/circular_widget_dimen"
+            android:layout_height="@dimen/circular_widget_dimen"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/dim_standard_x5"
+            app:layout_constraintBottom_toBottomOf="@id/ivPoster"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivPoster" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
