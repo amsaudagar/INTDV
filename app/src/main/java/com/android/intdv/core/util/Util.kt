@@ -38,4 +38,17 @@ object Util {
     fun getOriginalImageUrl(imagePath : String) : String {
         return "https://image.tmdb.org/t/p/original/${imagePath}"
     }
+
+    /**
+     * Returns the formatted duration on movie
+     * @param runtime - duration as long value
+     *
+     * @return formatted duration of the movie
+     */
+    fun getFormattedTime(runtime: Long): String {
+        val hrs = (runtime / 60).toInt()
+        val mins = runtime % 60
+
+        return "${hrs}h ${mins}m"
+    }
 }

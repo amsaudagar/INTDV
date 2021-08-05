@@ -5,10 +5,13 @@ import android.view.View
 import com.android.intdv.R
 import com.android.intdv.core.extension.failure
 import com.android.intdv.core.extension.observe
+import com.android.intdv.core.platform.BaseActivity
 import com.android.intdv.core.platform.BaseFragment
+import com.android.intdv.core.util.Constant
 import com.android.intdv.movie.data.remote.response.MovieDetails
 import com.android.intdv.movie.data.remote.response.MovieListResponse
 import com.android.intdv.movie.viewmodel.MoviesViewModel
+import kotlinx.android.synthetic.main.movie_list_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -35,21 +38,41 @@ class MovieListFragment : BaseFragment() {
         showProgressDialog()
         moviesViewModel.getCurrentPlayingMovies(1)
         moviesViewModel.getPopularMovies(pager)
+
+        setClickListener()
     }
 
     override fun handleFeatureFailure() {
 
     }
 
+    private fun setClickListener() {
+        ivFavourite.setOnClickListener {
+            //TODO Show favourite movies
+        }
+
+        ivSearch.setOnClickListener {
+            //TODO Show new screen to search movies
+        }
+    }
+
     private fun handleMovieListSuccess(movieListResponse: MovieListResponse?) {
         hideProgressDialog()
+        rvMoviePoster.adapter = PosterAdapter(movieListResponse?.movieList?: arrayListOf(),
+            ::onMovieSelected)
     }
 
     private fun handlePopularMovieListSuccess(movieListResponse: MovieListResponse?) {
         hideProgressDialog()
+        moviesAdapter = MoviesAdapter(movieListResponse?.movieList?: arrayListOf(), ::onMovieSelected)
+        recyclerView.adapter = moviesAdapter
     }
 
     private fun onMovieSelected(movieDetails : MovieDetails) {
-
+        val fragment = MovieDetailsFragment()
+        val bundle = Bundle()
+        bundle.putLong(Constant.MOVIE_ID, movieDetails.id)
+        fragment.arguments = bundle
+        (activity as BaseActivity).addFragmentInFlow(fragment)
     }
 }

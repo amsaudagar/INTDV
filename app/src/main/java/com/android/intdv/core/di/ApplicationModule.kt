@@ -15,8 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-const val PROD_ENVIRONMENT = "https://api.themoviedb.org/3"
-const val TEST_ENVIRONMENT = "https://api.themoviedb.org/3"
+const val PROD_ENVIRONMENT = "https://api.themoviedb.org/3/"
+const val TEST_ENVIRONMENT = "https://api.themoviedb.org/3/"
 
 const val API_KEY = "bec334d6579b292848916f0e271fb52d"
 const val LANGUAGE = "en-US"

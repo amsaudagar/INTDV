@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.intdv.R
 import com.android.intdv.R.layout
 import com.android.intdv.core.extension.gone
+import com.android.intdv.core.extension.inTransaction
 import com.android.intdv.core.extension.visible
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,6 +19,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
         setContentView(layoutId())
 
+        addInitialFragment()
+
         GlideApp.with(this).asGif()
             .load(R.drawable.loader)
             .into(ivProgress)
@@ -28,7 +31,7 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * Returns the instance of fragment to be loaded in activity
      */
-    open fun fragment(): BaseFragment? = null
+    abstract fun fragment(): BaseFragment
 
     /**
      * Returns the layout resource id
@@ -52,5 +55,17 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     fun hideProgress() {
         ivProgress?.gone()
+    }
+
+    private fun addInitialFragment() =
+        supportFragmentManager.inTransaction {
+            add(R.id.fragmentContainer, fragment())
+        }
+
+    fun addFragmentInFlow(fragment: BaseFragment) {
+        supportFragmentManager.inTransaction {
+            add(R.id.fragmentContainer, fragment)
+            addToBackStack(null)
+        }
     }
 }

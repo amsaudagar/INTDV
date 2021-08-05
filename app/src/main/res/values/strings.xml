@@ -3,4 +3,8 @@
     <string name="connection_failure">It seems, you lost your internet connection</string>
     <string name="server_failure">Sorry, we are unable to fetch data</string>
     <string name="percentage">%</string>
+    <string name="moviebox">Moviebox</string>
+    <string name="playing_now">Playing now</string>
+    <string name="most_popular">Most popular</string>
+    <string name="lbl_overview">Overview</string>
 </resources>
