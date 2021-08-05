@@ -47,7 +47,7 @@ class MovieDetailsFragment : BaseFragment() {
     private fun handleMovieDetailsSuccess(movieDetailsResponse: MovieDetailsResponse?) {
         hideProgressDialog()
         movieDetailsResponse?.let {
-            ivPoster.loadFromUrl(Util.getOriginalImageUrl(it.posterPath))
+            it.posterPath?.let{path -> ivPoster.loadFromUrl(Util.getOriginalImageUrl(path))}
             title.text = it.title
             txtOverview.text = it.overview
             releaseDate.text =  "${Util.getFormattedDate(it.releaseDate)} - ${Util.getFormattedTime(it.runtime)}"

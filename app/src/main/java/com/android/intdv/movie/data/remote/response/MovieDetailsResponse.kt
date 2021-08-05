@@ -15,7 +15,7 @@ data class MovieDetailsResponse(
 
     @SerializedName("poster_path")
     @Expose
-    var posterPath: String = "",
+    var posterPath: String? = "",
 
     @SerializedName("original_title")
     @Expose

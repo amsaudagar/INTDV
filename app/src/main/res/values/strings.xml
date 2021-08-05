@@ -7,4 +7,6 @@
     <string name="playing_now">Playing now</string>
     <string name="most_popular">Most popular</string>
     <string name="lbl_overview">Overview</string>
+    <string name="search_movie">Search Movie</string>
+    <string name="favourite_movies">Favourite Movies</string>
 </resources>

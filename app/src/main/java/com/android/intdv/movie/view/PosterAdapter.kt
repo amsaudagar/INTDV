@@ -35,7 +35,7 @@ class PosterAdapter(var movieList: ArrayList<MovieDetails>,
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: MovieDetails) = with(itemView) {
-            ivPoster.loadFromUrl(Util.getOriginalImageUrl(item.posterPath))
+            item.posterPath?.let{ivPoster.loadFromUrl(Util.getOriginalImageUrl(it))}
             itemView.setOnClickListener {
                 onMovieSelected(item)
             }

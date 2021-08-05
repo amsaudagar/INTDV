@@ -45,7 +45,9 @@ class MoviesAdapter(var movieList: ArrayList<MovieDetails>,
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: MovieDetails) = with(itemView) {
-            ivPoster.loadFromUrl(Util.getOriginalImageUrl(item.posterPath))
+            item.posterPath?.let {
+                ivPoster.loadFromUrl(Util.getOriginalImageUrl(it))
+            }
             title.text = item.title
             releaseDate.text = Util.getFormattedDate(item.releaseDate)
             itemView.setOnClickListener {

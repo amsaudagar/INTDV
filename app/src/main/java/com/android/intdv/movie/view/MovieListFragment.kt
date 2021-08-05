@@ -48,11 +48,13 @@ class MovieListFragment : BaseFragment() {
 
     private fun setClickListener() {
         ivFavourite.setOnClickListener {
-            //TODO Show favourite movies
+            val fragment = FavouriteMoviesFragment()
+            (activity as BaseActivity).addFragmentInFlow(fragment)
         }
 
         ivSearch.setOnClickListener {
-            //TODO Show new screen to search movies
+            val fragment = SearchMovieFragment()
+            (activity as BaseActivity).addFragmentInFlow(fragment)
         }
     }
 
