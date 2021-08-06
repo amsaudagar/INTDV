@@ -13,6 +13,7 @@ import com.android.intdv.movie.data.remote.response.MovieDetails
 import com.android.intdv.movie.data.remote.response.MovieListResponse
 import com.android.intdv.movie.view.dialogs.SortMoviesDialog
 import com.android.intdv.movie.viewmodel.MoviesViewModel
+import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
 import kotlinx.android.synthetic.main.movie_list_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -47,10 +48,36 @@ class MovieListFragment : BaseFragment(), SortMoviesDialog.IOnMovieSortListener 
         moviesViewModel.getPopularMovies(pager)
 
         setClickListener()
+        setLoadMoreListener()
     }
 
     override fun handleFeatureFailure() {
 
+    }
+
+    private fun setLoadMoreListener() {
+        pullLoadMoreRecyclerView.setLinearLayout()
+        pullLoadMoreRecyclerView.pullRefreshEnable = true
+        pullLoadMoreRecyclerView.pushRefreshEnable = true
+        pullLoadMoreRecyclerView.setFooterViewText(getString(R.string.loading))
+
+        pullLoadMoreRecyclerView.setOnPullLoadMoreListener(object :
+            PullLoadMoreRecyclerView.PullLoadMoreListener {
+
+            override fun onRefresh() {
+                //Refresh
+                pager = 1
+                showProgressDialog()
+                moviesViewModel.getPopularMovies(pager)
+            }
+
+            override fun onLoadMore() {
+                //load more data
+                pager++
+                showProgressDialog()
+                moviesViewModel.getPopularMovies(pager)
+            }
+        })
     }
 
     private fun setClickListener() {
@@ -81,28 +108,43 @@ class MovieListFragment : BaseFragment(), SortMoviesDialog.IOnMovieSortListener 
 
     private fun handleMovieListSuccess(movieListResponse: MovieListResponse?) {
         hideProgressDialog()
-        rvMoviePoster.adapter = PosterAdapter(movieListResponse?.movieList?: arrayListOf(),
-            ::onMovieSelected)
+        val posters = movieListResponse?.movieList?: arrayListOf()
+        CoroutineScope(Dispatchers.Main).launch {
+            val ids = getFavouriteMovieIds()
+            posters.forEach {
+                it.isFavourite = ids.contains(it.id)
+            }
+        }
+        rvMoviePoster.adapter = PosterAdapter(posters, ::onMovieSelected)
     }
 
     private fun handlePopularMovieListSuccess(movieListResponse: MovieListResponse?) {
         hideProgressDialog()
-        movieList = movieListResponse?.movieList?: arrayListOf()
+
         CoroutineScope(Dispatchers.Main).launch {
             val ids = getFavouriteMovieIds()
             movieList.forEach {
                 it.isFavourite = ids.contains(it.id)
             }
         }
-        movieList = movieList.sortedByDescending {
-            it.releaseDate
-        }.toArrayList()
 
-        moviesAdapter = MoviesAdapter(movieList,
-            ::onMovieSelected,
-            ::onFavourite,
-            ::onUnFavourite)
-        recyclerView.adapter = moviesAdapter
+        if(::moviesAdapter.isInitialized && pager > 0) {
+            val tempMovieList = movieListResponse?.movieList?: arrayListOf()
+            movieList.addAll(tempMovieList)
+            movieList = getSortedList(sortType, movieList)
+            pullLoadMoreRecyclerView.setPullLoadMoreCompleted()
+            moviesAdapter.refreshData(movieList)
+        } else {
+            movieList = movieListResponse?.movieList?: arrayListOf()
+            movieList = getSortedList(sortType, movieList)
+
+            pullLoadMoreRecyclerView.setPullLoadMoreCompleted()
+            moviesAdapter = MoviesAdapter(movieList,
+                ::onMovieSelected,
+                ::onFavourite,
+                ::onUnFavourite)
+            pullLoadMoreRecyclerView.setAdapter(moviesAdapter)
+        }
     }
 
     private fun onMovieSelected(movieDetails : MovieDetails) {

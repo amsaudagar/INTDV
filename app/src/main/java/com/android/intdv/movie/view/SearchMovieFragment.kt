@@ -1,9 +1,9 @@
 package com.android.intdv.movie.view
 
+import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import com.android.intdv.R
@@ -55,7 +55,7 @@ class SearchMovieFragment : BaseFragment(), SortMoviesDialog.IOnMovieSortListene
         etSearch.setSelection(0)
 
         ivSearch.setOnClickListener {
-            hideKeyboard()
+            ivSearch.hideKeyboard()
             val query = etSearch.text.toString().trim()
             if(query.isNotEmpty()) {
                 showProgressDialog()
@@ -107,7 +107,8 @@ class SearchMovieFragment : BaseFragment(), SortMoviesDialog.IOnMovieSortListene
         (activity as BaseActivity).addFragmentInFlow(fragment)
     }
 
-    private fun hideKeyboard() {
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+    private fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 }

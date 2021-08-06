@@ -18,4 +18,5 @@
     <string name="rating">Rating</string>
     <string name="high_to_low_rating">High to Low Rating</string>
     <string name="low_to_high_rating">Low to High Rating</string>
+    <string name="loading">Loading…</string>
 </resources>

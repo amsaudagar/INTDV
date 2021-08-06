@@ -56,18 +56,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivPoster" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvFavourite"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivFavourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim_standard_x10"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ratingView"
+            app:layout_constraintBottom_toBottomOf="@id/ratingView"
             app:layout_constraintEnd_toStartOf="@id/ratingView"
-            android:paddingBottom="@dimen/dim_standard_x5"
-            android:drawablePadding="@dimen/dim_standard_x5"
-            android:drawableStart="@drawable/ic_fav_unselected"
-            style="@style/TitleTextStyle"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_fav_unselected" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

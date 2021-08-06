@@ -3,7 +3,7 @@ package com.android.intdv.movie.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.intdv.R
@@ -39,17 +39,8 @@ class MoviesAdapter(var movieList: ArrayList<MovieDetails>,
     override fun getItemCount() = movieList.size
 
     /**
-     * Updates the data to load more records
-     * @param newMovieList - List of new movie objects
-     */
-    fun updateData(newMovieList : ArrayList<MovieDetails>) {
-        movieList.addAll(newMovieList)
-        notifyDataSetChanged()
-    }
-
-
-    /**
-     * Updates the data to load more records
+     * Updates/Refreshes the data to load new records
+     *
      * @param newMovieList - List of new movie objects
      */
     fun refreshData(newMovieList : ArrayList<MovieDetails>) {
@@ -77,37 +68,33 @@ class MoviesAdapter(var movieList: ArrayList<MovieDetails>,
             }
 
             if(item.isFavourite) {
-                setFavourite(tvFavourite)
+                setFavourite(ivFavourite)
             } else {
-                setUnFavourite(tvFavourite)
+                setUnFavourite(ivFavourite)
             }
 
-            tvFavourite.setOnClickListener {
-                val tag = tvFavourite.tag as String
+            ivFavourite.setOnClickListener {
+                val tag = ivFavourite.tag as String
                 if(tag == itemView.context.getString(R.string.favourite)) {
                     onUnFavourite(item)
-                    setUnFavourite(tvFavourite)
+                    setUnFavourite(ivFavourite)
                     item.isFavourite = false
                 } else {
                     onFavourite(item)
-                    setFavourite(tvFavourite)
+                    setFavourite(ivFavourite)
                     item.isFavourite = true
                 }
             }
         }
 
-        private fun setFavourite(tvFavourite : TextView) {
-            tvFavourite.text = ""//itemView.context.getString(R.string.favourite)
-            tvFavourite.tag = itemView.context.getString(R.string.favourite)
-            val drawable = ContextCompat.getDrawable(itemView.context, R.drawable.ic_fav_selected)
-            itemView.tvFavourite.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
+        private fun setFavourite(ivFavourite : ImageView) {
+            ivFavourite.tag = itemView.context.getString(R.string.favourite)
+            ivFavourite.background = ContextCompat.getDrawable(itemView.context, R.drawable.ic_fav_selected)
         }
 
-        private fun setUnFavourite(tvFavourite : TextView) {
-            tvFavourite.text = ""//itemView.context.getString(R.string.un_favourite)
-            tvFavourite.tag = itemView.context.getString(R.string.un_favourite)
-            val drawable = ContextCompat.getDrawable(itemView.context, R.drawable.ic_fav_unselected)
-            itemView.tvFavourite.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
+        private fun setUnFavourite(ivFavourite : ImageView) {
+            ivFavourite.tag = itemView.context.getString(R.string.un_favourite)
+            ivFavourite.background = ContextCompat.getDrawable(itemView.context, R.drawable.ic_fav_unselected)
         }
     }
 }
