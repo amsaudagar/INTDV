@@ -64,6 +64,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun addFragmentInFlow(fragment: BaseFragment) {
         supportFragmentManager.inTransaction {
+            setCustomAnimations(R.anim.slide_from_right,
+                R.anim.slide_to_left,
+                R.anim.slide_from_left,
+                R.anim.slide_to_right)
             add(R.id.fragmentContainer, fragment)
             addToBackStack(null)
         }
