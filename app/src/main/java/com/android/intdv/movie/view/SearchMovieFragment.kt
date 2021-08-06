@@ -3,6 +3,7 @@ package com.android.intdv.movie.view
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT
 import com.android.intdv.R
@@ -13,16 +14,25 @@ import com.android.intdv.core.platform.BaseFragment
 import com.android.intdv.core.util.Constant
 import com.android.intdv.movie.data.remote.response.MovieDetails
 import com.android.intdv.movie.data.remote.response.MovieListResponse
+import com.android.intdv.movie.view.dialogs.SortMoviesDialog
 import com.android.intdv.movie.viewmodel.MoviesViewModel
 import kotlinx.android.synthetic.main.search_movie_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Represents the fragment for movie details
  */
-class SearchMovieFragment : BaseFragment() {
+class SearchMovieFragment : BaseFragment(), SortMoviesDialog.IOnMovieSortListener {
 
     private val moviesViewModel: MoviesViewModel by viewModel()
+
+    private lateinit var moviesAdapter : MoviesAdapter
+
+    private var movieList = ArrayList<MovieDetails>()
+    private var sortType = SortMoviesDialog.SortType.NEWEST
 
     override fun layoutId() = R.layout.search_movie_fragment
 
@@ -45,6 +55,7 @@ class SearchMovieFragment : BaseFragment() {
         etSearch.setSelection(0)
 
         ivSearch.setOnClickListener {
+            hideKeyboard()
             val query = etSearch.text.toString().trim()
             if(query.isNotEmpty()) {
                 showProgressDialog()
@@ -52,13 +63,38 @@ class SearchMovieFragment : BaseFragment() {
             }
         }
 
+        ivSort.setOnClickListener {
+            val sortDialog = SortMoviesDialog(sortType)
+            sortDialog.setListener(this)
+            sortDialog.show(parentFragmentManager, "SortMoviesDialog")
+        }
+
         rootView.setOnTouchListener { _, _ -> true }
         rootView.setOnClickListener { }
     }
 
+    override fun onSorted(sortType: SortMoviesDialog.SortType) {
+        this.sortType = sortType
+        movieList = getSortedList(sortType, movieList)
+        if(::moviesAdapter.isInitialized) {
+            moviesAdapter.refreshData(movieList)
+        }
+    }
+
     private fun handleSearchResult(movieListResponse: MovieListResponse?) {
         hideProgressDialog()
-        val moviesAdapter = MoviesAdapter(movieListResponse?.movieList?: arrayListOf(), ::onMovieSelected)
+        movieList = movieListResponse?.movieList?: arrayListOf()
+        CoroutineScope(Dispatchers.Main).launch {
+            val ids = getFavouriteMovieIds()
+            movieList.forEach {
+                it.isFavourite = ids.contains(it.id)
+            }
+        }
+        movieList = getSortedList(SortMoviesDialog.SortType.NEWEST,movieList)
+        moviesAdapter = MoviesAdapter(movieList,
+            ::onMovieSelected,
+            ::onFavourite,
+            ::onUnFavourite)
         recyclerView.adapter = moviesAdapter
     }
 
@@ -66,7 +102,12 @@ class SearchMovieFragment : BaseFragment() {
         val fragment = MovieDetailsFragment()
         val bundle = Bundle()
         bundle.putLong(Constant.MOVIE_ID, movieDetails.id)
+        bundle.putBoolean(Constant.IS_FAVOURITE_MOVIE, movieDetails.isFavourite)
         fragment.arguments = bundle
         (activity as BaseActivity).addFragmentInFlow(fragment)
+    }
+
+    private fun hideKeyboard() {
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 }

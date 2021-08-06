@@ -37,5 +37,6 @@
 
     <dimen name="circular_widget_dimen">60dp</dimen>
     <dimen name="title_bar_height">60dp</dimen>
+    <dimen name="favourite_button_width">24dp</dimen>
 
 </resources>

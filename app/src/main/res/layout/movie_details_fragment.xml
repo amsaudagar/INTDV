@@ -28,14 +28,22 @@
                 app:srcCompat="@drawable/ic_back_arrow" />
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivFavourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_fav_unselected" />
+
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivPoster"
                 android:layout_width="@dimen/poster_width_large"
                 android:layout_height="@dimen/poster_height_large"
                 android:layout_marginStart="@dimen/dim_standard_x15"
                 android:layout_marginTop="@dimen/dim_standard_x15"
                 android:layout_marginBottom="@dimen/dim_standard_x15"
-                android:padding="@dimen/dim_standard_x2"
                 android:background="@drawable/gray_border_bg"
+                android:padding="@dimen/dim_standard_x2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -47,8 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_standard_x10"
-                android:textSize="@dimen/_18sp"
                 android:gravity="center_horizontal"
+                android:textSize="@dimen/_18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivPoster"

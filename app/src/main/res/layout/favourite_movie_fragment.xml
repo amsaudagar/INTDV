@@ -42,6 +42,16 @@
             android:textAllCaps="true"
             android:text="@string/favourite_movies"/>
 
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivBack"
+            app:layout_constraintBottom_toBottomOf="@id/ivBack"
+            app:srcCompat="@drawable/ic_sort" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -51,6 +61,17 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="5"
+        android:visibility="visible"
         tools:listitem="@layout/movie_item" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNoFavouriteMovie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/TitleTextStyle"
+        android:visibility="gone"
+        android:text="@string/you_do_not_have_any_favourite_movie"
+        android:gravity="center"/>
 
 </LinearLayout>

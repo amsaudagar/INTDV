@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/sor_dialog_bg"
+    android:padding="@dimen/dim_standard_x20">
+
+    <View
+        android:layout_width="@dimen/dim_standard_x20"
+        android:layout_height="@dimen/dim_standard_x4"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/gray" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtCancel"
+        style="@style/BaseTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/dim_standard_x20"
+        android:gravity="center|center"
+        android:padding="@dimen/dim_standard_x5"
+        android:text="@string/cancel"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDialogTitle"
+        style="@style/DetailsTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="@dimen/dim_standard_x15"
+        android:gravity="center|center"
+        android:text="@string/sort_by"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_24sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/rgSort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dim_standard_x20"
+        android:paddingEnd="@dimen/dim_standard_x20"
+        android:layout_marginTop="@dimen/dim_standard_x20"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rbNewest"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/radio_button_selector"
+            android:textColor="@color/black"
+            android:padding="@dimen/dim_standard_x10"
+            android:text="@string/newest" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rbOldest"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/radio_button_selector"
+            android:textColor="@color/black"
+            android:padding="@dimen/dim_standard_x10"
+            android:text="@string/oldest" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rbHightRating"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/radio_button_selector"
+            android:textColor="@color/black"
+            android:padding="@dimen/dim_standard_x10"
+            android:text="@string/high_to_low_rating" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rbLowRating"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/radio_button_selector"
+            android:textColor="@color/black"
+            android:padding="@dimen/dim_standard_x10"
+            android:text="@string/low_to_high_rating" />
+    </RadioGroup>
+
+</LinearLayout>

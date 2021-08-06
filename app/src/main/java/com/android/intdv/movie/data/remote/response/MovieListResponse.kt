@@ -1,5 +1,8 @@
 package com.android.intdv.movie.data.remote.response
 
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -26,8 +29,11 @@ data class MovieListResponse(
     }
 }
 
+@Entity
 data class MovieDetails(
 
+    @PrimaryKey
+    @NonNull
     @SerializedName("id")
     @Expose
     var id: Long = 0,
@@ -55,4 +61,5 @@ data class MovieDetails(
     val rating: Float get() {return (voteAverage*10)}
 
     var runtime = "0h 0m"
+    var isFavourite = false
 }

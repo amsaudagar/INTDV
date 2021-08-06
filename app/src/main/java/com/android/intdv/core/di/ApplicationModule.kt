@@ -1,13 +1,16 @@
 package com.android.intdv.core.di
 
+import androidx.room.Room
 import com.android.intdv.movie.data.remote.MoviesService
 import com.android.intdv.core.platform.NetworkHandler
 import com.android.intdv.movie.data.MoviesRepository
+import com.android.intdv.movie.data.local.MovieDB
 import com.android.intdv.movie.usecase.GetMovieDetailsUseCase
 import com.android.intdv.movie.usecase.GetMoviesUseCase
 import com.android.intdv.movie.usecase.SearchMoviesUseCase
 import com.android.intdv.movie.viewmodel.MoviesViewModel
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -53,6 +56,12 @@ val applicationModule = module {
 }
 
 val movieModule = module {
+    single {
+        val dbBuilder = Room.databaseBuilder(androidApplication(), MovieDB::class.java, "movie-db")
+        dbBuilder.fallbackToDestructiveMigration().build()
+    }
+    single { get<MovieDB>().favouriteMovieDao() }
+
     single { MoviesRepository.MoviesRepositoryImp(get(), get()) as MoviesRepository }
     single { GetMoviesUseCase(get()) }
     single { GetMovieDetailsUseCase(get()) }

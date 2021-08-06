@@ -25,6 +25,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back_arrow" />
 
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivBack"
+            app:layout_constraintBottom_toBottomOf="@id/ivBack"
+            app:srcCompat="@drawable/ic_sort" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etSearch"
             android:layout_width="0dp"
@@ -48,9 +58,10 @@
             android:id="@+id/ivSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dim_standard_x15"
             app:layout_constraintTop_toTopOf="@id/etSearch"
             app:layout_constraintBottom_toBottomOf="@id/etSearch"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivSort"
             app:srcCompat="@drawable/ic_search_white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
